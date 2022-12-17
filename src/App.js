@@ -3,21 +3,19 @@ import bridge from '@vkontakte/vk-bridge';
 import { View, Panel, PanelHeader, ButtonGroup, Placeholder, ScreenSpinner, AdaptivityProvider, AppRoot, ConfigProvider, SplitLayout, SplitCol, Button, Header } from '@vkontakte/vkui';
 import '@vkontakte/vkui/dist/vkui.css';
 import Home from './panels/Home'
-import Driver from './panels/Driver'
-import Passenger from './panels/Passenger'
 import { object } from 'prop-types';
 import WelcomePage from './panels/WelcomePage';
 import Vendor from './panels/Vendor';
 import QrCode from './panels/QrCode';
+import Stats from './panels/Stats';
 
 import './panels/appStyle.css';
 
 
 const STORAGE_KEYS = {
 	STATUS: 'status',
+	PAYMENTS: 'payments'
 }
-
-
 
 const App = () => {
 	const [scheme, setScheme] = useState('bright_light')
@@ -43,11 +41,11 @@ const App = () => {
 					switch(key){
 						case STORAGE_KEYS.STATUS:
 							if(data[key].hasSeenWelcomePage){
-								setActivePanel("home");
+								//setActivePanel("home");
 								setUserHasSeenWelcomePage(true);
 							}
 							break;
-						default: 
+						default:
 							break;
 					}
 				}
@@ -86,10 +84,10 @@ const App = () => {
 						seenWelcomePage={userHasSeenWelcomePage} 
 						fetchedUser={fetchedUser} 
 						go={seenWelcomePage}/>
-						<Home id='home' go={go}/>
-						<Passenger id='passenger'/>
+						<Home id='home' STORAGE_KEYS={STORAGE_KEYS} go={go}/>
 						<Vendor id='vendor' go={go} setThisPanel={setThisPanel} fetchedUser={fetchedUser} setQrCode={setQrCode}></Vendor>
 						<QrCode id='qrCode' go={go} qrCode={qrCode}></QrCode>
+						<Stats id='stats' go={go} fetchedUser={fetchedUser}></Stats>
 					</View>
 				</AppRoot>
 			</AdaptivityProvider>

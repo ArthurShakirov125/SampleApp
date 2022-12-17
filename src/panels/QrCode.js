@@ -1,20 +1,24 @@
 import React from 'react';
-import qr from '@vkontakte/vk-qr';
-import { useState } from 'react';
-import { Panel, PanelHeader, CellButton, FixedLayout, Div, Button } from '@vkontakte/vkui';
+import { Panel, PanelHeaderBack, PanelHeader, CellButton, FixedLayout, Div, Button, ButtonGroup } from '@vkontakte/vkui';
 
 const QrCode = ({id, go, qrCode}) => {
-
     return <Panel id={id} className='qrCodeBox'>
             <PanelHeader>
-                Маршрутное такси
+                Готовый QR-код
             </PanelHeader>
-            <CellButton  onClick={go} data-to='vendor'>Назад</CellButton>
-            <Div className='qrCode' dangerouslySetInnerHTML={{__html: qrCode}}></Div>
-            <FixedLayout vertical='bottom'>
-            <Div>
-                <Button mode='outline' size='l' stretched='true' onClick={go} data-to='home'>Скачать</Button>
+            <Div className='qr-code-header-content'>
+                <h3>QR-код</h3>
+                <p>Используйте получившийся QR-код, чтобы принимать платежи уже сейчас!</p>
             </Div>
+            <Div className='qr-code-container'>
+                <Div className='qrCode' dangerouslySetInnerHTML={{__html: qrCode}}></Div>
+            </Div>
+            <FixedLayout vertical='bottom'>
+                <Div>
+                    <ButtonGroup mode="vertical" stretched={true}>
+                        <Button mode='outline' onClick={go} data-to='vendor' size='l' stretched='true'>Назад</Button>
+                    </ButtonGroup>
+                </Div>
             </FixedLayout>
         </Panel>
 }
