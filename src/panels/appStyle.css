@@ -49,12 +49,64 @@
     margin: 0 auto;
 }
 
+.history-wrapper__group {
+    margin: 0;
+    padding: 0;
+}
+
+.history-wrapper {
+    padding: 5px 10px;
+    margin: 0;
+}
+
 .qr-code-header-content {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;
+}
+
+.history-amount {
+    font-weight: bold;
+}
+
+.history-item-main {
+    display: flex;
+    align-items: baseline;
+    padding: 0;
+    margin: 0;
+}
+
+.main-history-block {
+    display: flex;
+    flex-direction: column;
+}
+
+.history-item-title {
+    display: flex;
+    flex-direction: row;
+}
+
+.history-list {
+    padding-bottom: 50px;
+    display: flex;
+    flex-direction: column;
+}
+
+.history-item-details {
+    display: flex;
+    justify-content: left;
+    color: darkgray;
+    margin: 5px 0px 0px 0px;
+    padding: 0;
+}
+
+.history-item {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    justify-content: space-between;
 }
 
 .qr-code-container svg {

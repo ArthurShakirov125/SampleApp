@@ -1,5 +1,5 @@
 import React from 'react';
-import { Panel, PanelHeaderBack, PanelHeader, CellButton, FixedLayout, Div, Button, ButtonGroup } from '@vkontakte/vkui';
+import { Panel, PanelHeader, FixedLayout, Div, Button, ButtonGroup } from '@vkontakte/vkui';
 
 const QrCode = ({id, go, qrCode}) => {
     return <Panel id={id} className='qrCodeBox'>

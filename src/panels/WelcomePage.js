@@ -1,12 +1,9 @@
-import React, { Fragment } from 'react';
-import bridge from '@vkontakte/vk-bridge';
-import { Panel, FixedLayout, Header, Button, Group, Cell, Div, Avatar, ButtonGroup, FormLayout, PopoutWrapper, ActionSheet, CellButton, SplitLayout, SplitCol, Separator } from '@vkontakte/vkui';
+import { Panel, FixedLayout, Button, Div } from '@vkontakte/vkui';
 import { Icon56MoneyCircleFillBlue } from '@vkontakte/icons';
-import { Icon28BusOutline } from '@vkontakte/icons';
 
 const WelcomePage = ({go, fetchedUser, seenWelcomePage}) => {
     return <Panel id="welcome_page" centered={true}>
-        {(seenWelcomePage && fetchedUser) &&
+        {(!seenWelcomePage && fetchedUser) &&
                 <Div className='Intro'>
                     <Div className='intro-top_panel'>
                         <Icon56MoneyCircleFillBlue/>

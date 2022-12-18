@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import bridge from '@vkontakte/vk-bridge';
-import { View, Panel, PanelHeader, ButtonGroup, Placeholder, ScreenSpinner, AdaptivityProvider, AppRoot, ConfigProvider, SplitLayout, SplitCol, Button, Header } from '@vkontakte/vkui';
+import { View, AdaptivityProvider, AppRoot, ConfigProvider } from '@vkontakte/vkui';
 import '@vkontakte/vkui/dist/vkui.css';
 import Home from './panels/Home'
 import { object } from 'prop-types';
@@ -41,7 +41,7 @@ const App = () => {
 					switch(key){
 						case STORAGE_KEYS.STATUS:
 							if(data[key].hasSeenWelcomePage){
-								//setActivePanel("home");
+								setActivePanel("home");
 								setUserHasSeenWelcomePage(true);
 							}
 							break;
@@ -85,9 +85,9 @@ const App = () => {
 						fetchedUser={fetchedUser} 
 						go={seenWelcomePage}/>
 						<Home id='home' STORAGE_KEYS={STORAGE_KEYS} go={go}/>
+						<Stats id='stats' go={go}></Stats>
 						<Vendor id='vendor' go={go} setThisPanel={setThisPanel} fetchedUser={fetchedUser} setQrCode={setQrCode}></Vendor>
 						<QrCode id='qrCode' go={go} qrCode={qrCode}></QrCode>
-						<Stats id='stats' go={go} fetchedUser={fetchedUser}></Stats>
 					</View>
 				</AppRoot>
 			</AdaptivityProvider>
