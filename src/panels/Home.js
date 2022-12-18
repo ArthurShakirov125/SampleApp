@@ -34,31 +34,31 @@ const Home = ({ id, go }) => {
                         if (data.status) {
                             try {
                                 bridge.send("VKWebAppStorageGet", { keys: ['payments'] }).then((data) => {
-                                    if(data.keys) {
+                                    if (data.keys) {
                                         let items = [];
-                                        if(data.keys.map(x => x.value)[0] != '') {
+                                        if (data.keys.map(x => x.value)[0] != '') {
                                             items = JSON.parse(data.keys.map(x => x.value));
                                         }
-                                        items.push({'amount': result.cost, 'route': result.route, 'date': Date.now()});
-                                        
+                                        items.push({ 'amount': result.cost, 'route': result.route, 'date': Date.now() });
+
                                         bridge.send("VKWebAppStorageSet", {
                                             key: 'payments',
                                             value: JSON.stringify(items)
-                                        }).then((data) => { 
+                                        }).then((data) => {
                                             if (data.result) {
                                                 console.log("SENDED: " + data.result)
                                             }
-                                          })
-                                          .catch((error) => {
-                                            // Ошибка
-                                            console.log(error);
-                                          });
+                                        })
+                                            .catch((error) => {
+                                                // Ошибка
+                                                console.log(error);
+                                            });
                                     }
                                 });
                             }
-                            catch(ex) {
+                            catch (ex) {
                                 //
-                            }               
+                            }
                             openSnackbar(< Icon20CheckCircleFillGreen width={16} height={16} />, "Оплата прошла успешно!", 3000);
                         }
                     })
@@ -67,11 +67,11 @@ const Home = ({ id, go }) => {
                     });
             })
             .catch((error) => {
-                switch(error.error_data.error_code) {
+                switch (error.error_data.error_code) {
                     case 6:
                         openSnackbar(<Icon16ErrorCircleFill />, "Ошибка! Ваша платформа не поддерживает сканирование QR-кода.", 3000)
                         break;
-                    
+
                     case 4:
                         break;
 
@@ -101,7 +101,7 @@ const Home = ({ id, go }) => {
                 <ButtonGroup gap="m" align="center" mode="vertical" stretched="true">
                     <ButtonGroup stretched={true}>
                         <Button onClick={pay} data-to="passenger" size="m" stretched="true" before={<Icon24Qr />}>Оплатить по QR-коду</Button>
-                        <Button size='m' mode='outline' before={<Icon28MoneyHistoryBackwardOutline width={20} height={20} onClick={go} data-to='stats'/>}></Button>
+                        <Button size='m' mode='outline' onClick={go} data-to='stats'><Icon28MoneyHistoryBackwardOutline width={20} height={20} /></Button>
                     </ButtonGroup>
                     <Button mode='secondary' onClick={go} data-to="vendor" size="m" stretched="true" before={<Icon24CarOutline />}>Я водитель</Button>
                 </ButtonGroup>

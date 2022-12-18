@@ -25,22 +25,22 @@ const App = () => {
 	const [qrCode, setQrCode] = useState(null);
 
 	useEffect(() => {
-		bridge.subscribe(({ detail: { type, data }}) => {
+		bridge.subscribe(({ detail: { type, data } }) => {
 			if (type === 'VKWebAppUpdateConfig') {
 				setScheme(data.scheme)
 			}
 		});
 		async function fetchData() {
 			const user = await bridge.send('VKWebAppGetUserInfo');
-			const storageData = await bridge.send("VKWebAppStorageGet", {keys: Object.values(STORAGE_KEYS)});
+			const storageData = await bridge.send("VKWebAppStorageGet", { keys: Object.values(STORAGE_KEYS) });
 
 			const data = {};
-			storageData.keys.forEach(({key, value}) => {
-				try{
+			storageData.keys.forEach(({ key, value }) => {
+				try {
 					data[key] = value ? JSON.parse(value) : {};
-					switch(key){
+					switch (key) {
 						case STORAGE_KEYS.STATUS:
-							if(data[key].hasSeenWelcomePage){
+							if (data[key].hasSeenWelcomePage) {
 								setActivePanel("home");
 								setUserHasSeenWelcomePage(true);
 							}
@@ -49,7 +49,7 @@ const App = () => {
 							break;
 					}
 				}
-				catch(error){
+				catch (error) {
 
 				}
 			})
@@ -62,13 +62,13 @@ const App = () => {
 		setActivePanel(e.currentTarget.dataset.to)
 	}
 
-	const setThisPanel = (id) =>{
+	const setThisPanel = (id) => {
 		setActivePanel(id);
 	}
 
-	const seenWelcomePage = async function(){
+	const seenWelcomePage = async function () {
 		await bridge.send("VKWebAppStorageSet", {
-			key: STORAGE_KEYS.STATUS, 
+			key: STORAGE_KEYS.STATUS,
 			value: JSON.stringify({
 				hasSeenWelcomePage: true
 			})
@@ -77,21 +77,21 @@ const App = () => {
 	}
 
 	return <ConfigProvider scheme={scheme}>
-			<AdaptivityProvider>
-				<AppRoot>
-					<View style={{justifyContent: "center"}} activePanel={activePanel}>
-						<WelcomePage id='welcome_page' 
-						seenWelcomePage={userHasSeenWelcomePage} 
-						fetchedUser={fetchedUser} 
-						go={seenWelcomePage}/>
-						<Home id='home' STORAGE_KEYS={STORAGE_KEYS} go={go}/>
-						<Stats id='stats' go={go}></Stats>
-						<Vendor id='vendor' go={go} setThisPanel={setThisPanel} fetchedUser={fetchedUser} setQrCode={setQrCode}></Vendor>
-						<QrCode id='qrCode' go={go} qrCode={qrCode}></QrCode>
-					</View>
-				</AppRoot>
-			</AdaptivityProvider>
-		</ConfigProvider>;
+		<AdaptivityProvider>
+			<AppRoot>
+				<View style={{ justifyContent: "center" }} activePanel={activePanel}>
+					<WelcomePage id='welcome_page'
+						seenWelcomePage={userHasSeenWelcomePage}
+						fetchedUser={fetchedUser}
+						go={seenWelcomePage} />
+					<Home id='home' STORAGE_KEYS={STORAGE_KEYS} go={go} />
+					<Stats id='stats' go={go}></Stats>
+					<Vendor id='vendor' go={go} setThisPanel={setThisPanel} fetchedUser={fetchedUser} setQrCode={setQrCode}></Vendor>
+					<QrCode id='qrCode' go={go} qrCode={qrCode}></QrCode>
+				</View>
+			</AppRoot>
+		</AdaptivityProvider>
+	</ConfigProvider>;
 }
 
 export default App;
